@@ -1,0 +1,49 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=MasterKey0
+    ports:
+      - "1433:1433"
+    networks:
+      - app-network
+    volumes:
+      - sqlserver_data:/var/opt/mssql 
+
+  api:
+    image: serverside
+    container_name: serverside
+    build:
+      context: ./ServerSide
+    depends_on:
+      - sqlserver
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=AppDb;User Id=sa;Password=MasterKey0;TrustServerCertificate=True;  
+      - AllowedOrigins=http://localhost
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    
+  client:
+    image: clientside
+    container_name: clientside
+    build:
+      context: ./ClientSide
+    ports:
+      - "80:80"
+    environment:
+      - API_URL=http://localhost:8080/api
+    depends_on:
+      - api
+    networks:
+    - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  sqlserver_data:   

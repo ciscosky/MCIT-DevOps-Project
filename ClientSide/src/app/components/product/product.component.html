@@ -1,0 +1,51 @@
+<div class="container">
+    <h2>Product Management</h2>
+  
+    <div class="form-container">
+      <h3>{{ editMode ? 'Edit' : 'Add New' }} Product</h3>
+      <form (ngSubmit)="editMode ? updateProduct() : createProduct()" class="product-form">
+        <div class="form-group">
+          <label for="name">Product Name:</label>
+          <input id="name" [(ngModel)]="product.name" name="name" required placeholder="Enter product name" />
+        </div>
+  
+        <div class="form-group">
+          <label for="price">Price:</label>
+          <input
+            id="price"
+            type="number"
+            [(ngModel)]="product.price"
+            name="price"
+            required
+            placeholder="Enter product price"
+          />
+        </div>
+  
+        <button type="submit" class="btn btn-create">{{ editMode ? 'Update' : 'Create' }} Product</button>
+      </form>
+    </div>
+  
+    <div class="product-list">
+      <h3>Product List</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products">
+            <td>{{ product.name }}</td>
+            <td>${{ product.price }}</td>
+            <td>
+              <button (click)="editProduct(product)" class="btn btn-edit">Edit</button>
+              <button (click)="deleteProduct(product.id)" class="btn btn-delete">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

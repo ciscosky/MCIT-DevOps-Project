@@ -1,0 +1,45 @@
+# Ignore the build output
+bin/
+obj/
+
+# Ignore user-specific files
+*.suo
+*.user
+*.userprefs
+*.sln.ide
+
+# Ignore log files
+*.log
+
+# Ignore test files and folders
+Tests/
+TestResults/
+
+# Ignore Visual Studio files
+.vs/
+*.vscode/
+
+# Ignore configuration files that shouldn't be shared
+appsettings.Development.json
+appsettings.Test.json
+
+# Ignore package management files
+*.nupkg
+packages/
+project.lock.json
+
+# Ignore temporary files
+*.tmp
+*.temp
+
+# Ignore IDE specific files
+.idea/
+
+# Ignore secrets and sensitive information
+*.pfx
+*.key
+*.pem
+
+# Ignore any other files or directories you do not need in the Docker image
+README.md
+LICENSE
