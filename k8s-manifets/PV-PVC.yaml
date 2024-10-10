@@ -5,7 +5,7 @@ metadata:
   namespace: dev
 spec:
   capacity:
-    storage: 5Gi  # Specify the size of the volume
+    storage: 1Gi  # Specify the size of the volume
   accessModes:
     - ReadWriteOnce  # Change this based on your access needs
   hostPath:  # Use hostPath for local testing; for production, use other types like NFS or cloud storage
@@ -22,7 +22,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi  # Must match the PersistentVolume size
+      storage: 1Gi  # Must match the PersistentVolume size
   selector:
     matchLabels:
       app: sqlserver  # Ensure this matches the label in the PV
