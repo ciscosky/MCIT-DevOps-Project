@@ -1,4 +1,4 @@
-# DockerizedCRUD3TierWebApp
+# Dockerized3TierWebApp
 
 ## Overview
 
