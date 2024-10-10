@@ -1,1 +1,0 @@
-# MCIT-DevOps-Project
