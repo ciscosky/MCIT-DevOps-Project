@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sqlserver
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:  
+      app: sqlserver
+  template:
+    metadata:
+      labels:
+        app: sqlserver
+    spec:
+      containers:
+        - name: sqlserver
+          image: mcr.microsoft.com/mssql/server:2022-latest
+          env:  
+            - name: ACCEPT_EULA
+              value: "Y"
+            - name: MSSQL_SA_PASSWORD
+              value: "MasterKey0"
+          ports:
+            - containerPort: 1433  
+          volumeMounts:
+            - mountPath: /var/opt/mssql
+              name: sqlserver-data  # Reference the PVC here
+      volumes:
+        - name: sqlserver-data
+          persistentVolumeClaim:
+            claimName: sqlserver-data-pvc  # Reference the PVC by name

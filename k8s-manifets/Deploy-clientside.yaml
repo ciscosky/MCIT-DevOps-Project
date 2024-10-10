@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: frontend
+  namespace: dev
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend 
+  template:
+    metadata:
+      labels:
+        app: frontend 
+    spec:
+      containers:
+      - name: clientside
+        image: ahmedalmahdi/clientside:v1  #we need to create environment variable for the image version
+        ports: 
+        - containerPort: 80
+        env:
+          - name: API_URL 
+            value: "http://localhost:8080/api"
+
+  

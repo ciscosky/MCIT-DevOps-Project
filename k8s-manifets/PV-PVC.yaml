@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: sqlserver-data-pv
+  namespace: dev
+spec:
+  capacity:
+    storage: 5Gi  # Specify the size of the volume
+  accessModes:
+    - ReadWriteOnce  # Change this based on your access needs
+  hostPath:  # Use hostPath for local testing; for production, use other types like NFS or cloud storage
+    path: /data/sqlserver  # Adjust path as necessary
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sqlserver-data-pvc
+  namespace: dev
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi  # Must match the PersistentVolume size
+  selector:
+    matchLabels:
+      app: sqlserver  # Ensure this matches the label in the PV

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: serverside
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: serverside
+  template:
+    metadata:
+      labels:
+        app: serverside
+    spec:
+      containers:
+      - name: serverside 
+        image: ahmedalmahdi/serverside:v1
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ConnectionStrings__DefaultConnection
+          value: "Server=srv-sqlserver;Database=AppDb;User Id=sa;Password=MasterKey0;TrustServerCertificate=True;"  # we have change "sqlserver" to "srv-sqlserver"
+        - name: AllowedOrigins
+          value: "http://localhost"
